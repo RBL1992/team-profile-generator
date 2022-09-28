@@ -1,5 +1,13 @@
+const Manager = require('./library/manager');
+const Engineer = require('./library/engineer');
+const Intern = require('./library/intern');
+const pageLayout = require('./source/pageLayout');
+const renderTeamHtml = require('./distributable/index.html');
+const path = require('path');
 const fs = require('fs')
 const inquirer = require('inquirer')
+
+const myTeam = [];
 
 inquirer
     .prompt([
@@ -11,7 +19,7 @@ inquirer
         {
             type: 'input',
             message: 'What is your employee ID?',
-            name: 'employeeID',
+            name: 'employeeId',
         },
         {
             type: 'input',
@@ -26,6 +34,8 @@ inquirer
     ])
     .then((answers) => {
         // creation of manager class
+        const manager = new Manager(answers.managersName, answers.employeeId, answers.emailAddress, answers.officeNumber);
+        myTeam.push(manager);
         buildTeam()
     })
 
@@ -43,8 +53,10 @@ function buildTeam() {
             switch (answers.buildChoice) {
                 case "engineer":
                     addEngineer();
+                    break;
                 case "intern":
                     addIntern();
+                    break;
                 case "finish building team":
                     finishBuildingTeam();
             }
@@ -63,7 +75,7 @@ function addEngineer() {
             {
                 type: 'input',
                 message: 'What is your employee ID?',
-                name: 'employeeID',
+                name: 'employeeId',
             },
             {
                 type: 'input',
@@ -77,12 +89,13 @@ function addEngineer() {
             }
         ])
         .then((answers) => {
-            buildTeam()
-            
+            const addEngineer = new Engineer(answers.engineersName, answers.employeeId, answers.emailAddress, answers.userName);
+            myTeam.push(addEngineer);
+            buildTeam();
         })
 }
 
-function addIntern(){
+function addIntern() {
     inquirer
         .prompt([
             {
@@ -93,7 +106,7 @@ function addIntern(){
             {
                 type: 'input',
                 message: 'What is your employee ID?',
-                name: 'employeeID',
+                name: 'employeeId',
             },
             {
                 type: 'input',
@@ -107,11 +120,31 @@ function addIntern(){
             }
         ])
         .then((answers) => {
+            const intern = new Intern(answers.internsName, answers.employeeId, answers.emailAdress, answers.schoolName);
+            myTeam.push(intern);
             buildTeam()
-            
+
         })
 }
 
-function finishBuildingTeam(){
-    fs.writeFileSync('index.html',generateHTML(answers))
+function finishBuildingTeam(fileName, answers) {
+    fs.writeFile(fileName, answers, (err)=>{
+        err ? console.log(err) : console.log('Created Team!')
+    }) 
+        //     if (err) {
+        //         console.log(err);
+        //     } else {
+        //         console.log('Team profile has been created!');
+        //     };
+        // })
 }
+
+// // TODO: Create a function to initialize app
+// const init = () => {
+//     return inquirer.prompt().then((answers)=>{
+//         writeToFile('generatedTeam.html',generateteam(answers))
+//     })
+// }
+
+// // Function call to initialize app
+// init();
