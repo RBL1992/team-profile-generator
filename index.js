@@ -1,7 +1,7 @@
-const Manager = require('./library/manager');
-const Engineer = require('./library/engineer');
-const Intern = require('./library/intern');
-const pageLayout = require('./source/pageLayout');
+const Manager = require('./library/manager.js');
+const Engineer = require('./library/engineer.js');
+const Intern = require('./library/intern.js');
+const renderTeam = require('./source/pageLayout');
 const renderTeamHtml = require('./distributable/index.html');
 const path = require('path');
 const fs = require('fs')
@@ -58,10 +58,10 @@ function buildTeam() {
                     addIntern();
                     break;
                 case "finish building team":
-                    finishBuildingTeam();
+                    console.log(myTeam);
+                    finishBuildingTeam('./distributable/generated.html', renderTeam(myTeam));
             }
         })
-
 }
 
 function addEngineer() {
@@ -120,7 +120,7 @@ function addIntern() {
             }
         ])
         .then((answers) => {
-            const intern = new Intern(answers.internsName, answers.employeeId, answers.emailAdress, answers.schoolName);
+            const intern = new Intern(answers.internsName, answers.employeeId, answers.emailAddress, answers.schoolName);
             myTeam.push(intern);
             buildTeam()
 
@@ -128,23 +128,7 @@ function addIntern() {
 }
 
 function finishBuildingTeam(fileName, answers) {
-    fs.writeFile(fileName, answers, (err)=>{
+    fs.writeFile(fileName, answers, (err) => {
         err ? console.log(err) : console.log('Created Team!')
-    }) 
-        //     if (err) {
-        //         console.log(err);
-        //     } else {
-        //         console.log('Team profile has been created!');
-        //     };
-        // })
+    })  
 }
-
-// // TODO: Create a function to initialize app
-// const init = () => {
-//     return inquirer.prompt().then((answers)=>{
-//         writeToFile('generatedTeam.html',generateteam(answers))
-//     })
-// }
-
-// // Function call to initialize app
-// init();

@@ -1,33 +1,33 @@
 const fs = require('fs');
 
-const generateManager = function (Manager){
+const generateManager = function (manager){
     return `<div class="card text-white bg-dark" style="width: 18rem">
-    <div class="card-header mt-3 mb-3">Manager: ${manager.managerName}</div>
+    <div class="card-header mt-3 mb-3">Manager: ${manager.name}</div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item m-2">ID: ${manager.managerId}</li>
-      <li class="list-group-item m-2">Email: <a href="mailto:${manager.managerEmail}"> ${manager.managerEmail}</a></li>
-      <li class="list-group-item m-2">Office: ${manager.managerOfficeNumber}</li>
+      <li class="list-group-item m-2">ID: ${manager.id}</li>
+      <li class="list-group-item m-2">Email: <a href="mailto:${manager.email}"> ${manager.email}</a></li>
+      <li class="list-group-item m-2">Office: ${manager.officeNumber}</li>
     </ul>
   </div>`;
 }
 
-const generateEngineer = function (Engineer){
+const generateEngineer = function (engineer){
     return `<div class="card text-white bg-dark" style="width: 18rem">
-    <div class="card-header mt-3 mb-3">Manager: ${engineer.engineerName}</div>
+    <div class="card-header mt-3 mb-3">Engineer: ${engineer.name}</div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item m-2">ID: ${engineer.engineerId}</li>
-      <li class="list-group-item m-2">Email: <a href="mailto:${engineer.engineerEmail}"> ${engineer.engineerEmail}</a></li>
-      <li class="list-group-item m-2">GitHub: <a href="https://github.com${engineer.engineerGitHub}" target ="_blank">${engineer.engineerGitHub}</a></li>
+      <li class="list-group-item m-2">ID: ${engineer.id}</li>
+      <li class="list-group-item m-2">Email: <a href="mailto:${engineer.email}"> ${engineer.email}</a></li>
+      <li class="list-group-item m-2">GitHub: <a href="https://github.com${engineer.gitHub}" target ="_blank">${engineer.gitHub}</a></li>
     </ul>
   </div>`;
 }
 
-const generateIntern = function (Intern){
+const generateIntern = function (intern){
     return `<div class="card text-white bg-dark" style="width: 18rem">
-    <div class="card-header mt-3 mb-3">Manager: ${intern.internName}</div>
+    <div class="card-header mt-3 mb-3">Intern: ${intern.name}</div>
     <ul class="list-group list-group-flush">
-      <li class="list-group-item m-2">ID: ${intern.internId}</li>
-      <li class="list-group-item m-2">Email: <a href="mailto:${intern.internEmail}"> ${intern.internEmail}</a></li>
+      <li class="list-group-item m-2">ID: ${intern.id}</li>
+      <li class="list-group-item m-2">Email: <a href="mailto:${intern.email}"> ${intern.email}</a></li>
       <li class="list-group-item m-2">School: ${intern.school}</li>
     </ul>
   </div>`
@@ -40,15 +40,15 @@ renderTeam = (data) =>{
     for (var i=0; i < data.length; i++){
         const employee = data[i];
         const role = employee.getRole();
-        if (role === 'manager'){
+        if (role === 'Manager'){
             const managerCard = generateManager(employee);
             pageArray.push(managerCard);
         }
-        if (role === 'engineer'){
+        if (role === 'Engineer'){
             const engineerCard = generateEngineer(employee);
             pageArray.push(engineerCard);
         }
-        if(role === 'intern'){
+        if(role === 'Intern'){
             const internCard = generateIntern(employee);
             pageArray.push(internCard);
         }
