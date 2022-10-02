@@ -17,7 +17,7 @@ const generateEngineer = function (engineer){
     <ul class="list-group list-group-flush">
       <li class="list-group-item m-2">ID: ${engineer.id}</li>
       <li class="list-group-item m-2">Email: <a href="mailto:${engineer.email}"> ${engineer.email}</a></li>
-      <li class="list-group-item m-2">GitHub: <a href="https://github.com${engineer.gitHub}" target ="_blank">${engineer.gitHub}</a></li>
+      <li class="list-group-item m-2">GitHub: <a href="https://github.com/${engineer.gitHub}" target ="_blank">${engineer.gitHub}</a></li>
     </ul>
   </div>`;
 }
